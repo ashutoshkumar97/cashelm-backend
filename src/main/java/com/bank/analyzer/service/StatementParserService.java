@@ -24,15 +24,15 @@ public class StatementParserService {
 
     // HDFC Date format is typically dd/MM/yy
     private static final DateTimeFormatter HDFC_DATE_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yy");
-    private static final DateTimeFormatter CSV_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // Assuming
-                                                                                                        // standard for
-                                                                                                        // CSV for now
+
+    // Assuming standard for CSV for now
+    private static final DateTimeFormatter CSV_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     public StatementParserService(TransactionRepository transactionRepository) {
         this.transactionRepository = transactionRepository;
     }
 
-    public List<Transaction> parseAndSave(MultipartFile file) throws Exception {
+    public List<Transaction> parseAndSave(MultipartFile file, String password) throws Exception {
         String filename = file.getOriginalFilename();
         List<Transaction> transactions = new ArrayList<>();
 
