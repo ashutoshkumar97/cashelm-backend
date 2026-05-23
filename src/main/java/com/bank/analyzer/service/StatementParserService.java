@@ -51,7 +51,7 @@ public class StatementParserService {
         List<Transaction> transactions = new ArrayList<>();
         byte[] pdfBytes = file.getBytes();
         try (org.apache.pdfbox.pdmodel.PDDocument document = org.apache.pdfbox.Loader
-                .loadPDF(new org.apache.pdfbox.io.RandomAccessReadBuffer(pdfBytes), "175811759")) {
+                .loadPDF(new org.apache.pdfbox.io.RandomAccessReadBuffer(pdfBytes), password)) {
             org.apache.pdfbox.text.PDFTextStripper stripper = new org.apache.pdfbox.text.PDFTextStripper();
             stripper.setSortByPosition(true); // Crucial for multi-line column alignment
             String text = stripper.getText(document);
