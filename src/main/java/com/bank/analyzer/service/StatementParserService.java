@@ -37,7 +37,7 @@ public class StatementParserService {
         List<Transaction> transactions = new ArrayList<>();
 
         if (filename != null && filename.toLowerCase().endsWith(".pdf")) {
-            transactions = parsePdf(file);
+            transactions = parsePdf(file, password);
         } else if (filename != null && filename.toLowerCase().endsWith(".csv")) {
             transactions = parseCsv(file);
         } else {
@@ -47,7 +47,7 @@ public class StatementParserService {
         return transactionRepository.saveAll(transactions);
     }
 
-    private List<Transaction> parsePdf(MultipartFile file) throws Exception {
+    private List<Transaction> parsePdf(MultipartFile file, String password) throws Exception {
         List<Transaction> transactions = new ArrayList<>();
         byte[] pdfBytes = file.getBytes();
         try (org.apache.pdfbox.pdmodel.PDDocument document = org.apache.pdfbox.Loader
