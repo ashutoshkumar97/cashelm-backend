@@ -96,4 +96,8 @@ public class StatementParserService {
                 || l.contains("CLOSING BALANCE")
                 || l.contains("PAGE");
     }
+
+    public List<Transaction> getAllTransactions() {
+        return transactionRepository.findAll();
+    }
 }
