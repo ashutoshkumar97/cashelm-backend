@@ -64,9 +64,9 @@ public class StatementParserService {
                 current.setDate(LocalDate.parse(matcher.group(1), DateTimeFormatter.ofPattern("dd/MM/yy")));
                 current.setDescription(matcher.group(2).trim());
 
-                String withdrawal   = matcher.group(5);
-                String deposit      = matcher.group(6);
-                String balance      = matcher.group(7);
+                String withdrawal = matcher.group(5);
+                String deposit = matcher.group(6);
+                String balance = matcher.group(7);
 
                 if (withdrawal != null && !withdrawal.isBlank()) {
                     current.setAmount(new BigDecimal(withdrawal.replace(",", "")));
@@ -99,5 +99,13 @@ public class StatementParserService {
 
     public List<Transaction> getAllTransactions() {
         return transactionRepository.findAll();
+    }
+
+    public Transaction updateRemark(Long id, String remark) {
+        Transaction transaction = transactionRepository.findById(id).orElseThrow(
+                () -> new RuntimeException("Transaction not found with id: " + id)
+        );
+        transaction.setRemark(remark);
+        return transactionRepository.save(transaction);
     }
 }
