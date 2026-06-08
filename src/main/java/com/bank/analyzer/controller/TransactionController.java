@@ -25,12 +25,12 @@ public class TransactionController {
     }
 
     @PostMapping("/upload")
-    public ResponseEntity<Boolean> uploadPdf(@RequestParam("file") MultipartFile file,
+    public ResponseEntity<List<Transaction>> uploadPdf(@RequestParam("file") MultipartFile file,
             @RequestParam(value = "password", required = false) String password) throws Exception {
 
         String rawText = statementParserService.extractRawText(file, password);
         List<Transaction> transactions = statementParserService.parseTransactions(rawText);
         System.out.println("Parsed " + transactions.size() + " transactions");
-        return ResponseEntity.ok(true);
+        return ResponseEntity.ok(transactions);
     }
 }

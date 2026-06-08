@@ -1,6 +1,7 @@
 package com.bank.analyzer.service;
 
 import com.bank.analyzer.model.Transaction;
+import com.bank.analyzer.repository.TransactionRepository;
 import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.io.RandomAccessReadBuffer;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -18,6 +19,12 @@ import java.util.regex.Pattern;
 
 @Service
 public class StatementParserService {
+
+    private final TransactionRepository transactionRepository;
+
+    public StatementParserService(TransactionRepository transactionRepository) {
+        this.transactionRepository = transactionRepository;
+    }
 
     public String extractRawText(MultipartFile file, String password) throws Exception {
 
@@ -76,7 +83,8 @@ public class StatementParserService {
                 current.setDescription(current.getDescription() + " " + line.trim());
             }
         }
-        return transactions;
+        transactionRepository.deleteAll();
+        return transactionRepository.saveAll(transactions);
     }
 
     private boolean isJunkLine(String line) {

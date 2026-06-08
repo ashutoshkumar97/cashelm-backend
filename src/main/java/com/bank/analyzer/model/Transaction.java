@@ -1,11 +1,24 @@
 package com.bank.analyzer.model;
 
+import jakarta.persistence.*;
+
+import javax.annotation.processing.Generated;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+@Entity
+@Table(name = "transactions")
 public class Transaction {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private LocalDate date;
+
+    @Column(columnDefinition = "TEXT")
     private String description;
+
     private BigDecimal amount;
     private String type;
     private BigDecimal balance;
@@ -20,6 +33,14 @@ public class Transaction {
         this.type = type;
         this.balance = balance;
         this.remark = remark;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public LocalDate getDate() {
