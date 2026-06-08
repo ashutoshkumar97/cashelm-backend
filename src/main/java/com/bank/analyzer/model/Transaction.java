@@ -11,6 +11,8 @@ public class Transaction {
     private BigDecimal balance;
     private String remark;
 
+    public Transaction() {}
+
     public Transaction(LocalDate date, String description, BigDecimal amount, String type, BigDecimal balance, String remark) {
         this.date = date;
         this.description = description;
